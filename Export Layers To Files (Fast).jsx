@@ -1,18 +1,18 @@
 // NAME:
-// 	Export Layers To Files
+//  Export Layers To Files
 
 // DESCRIPTION:
 //  Improved version of the built-in "Export Layers To Files" script:
 //  * Supports PNG and possibly other formats in the future.
 //  * Does not create multiple document duplicates, so it's much faster.
-//	Saves each layer in the active document to a file in a preferred format named after the layer. Supported formats:
+//  Saves each layer in the active document to a file in a preferred format named after the layer. Supported formats:
 //  * PNG
 //  * JPEG
 //  * Targa
 //  * BMP
 
 // REQUIRES:
-// 	Adobe Photoshop CS2 or higher
+//  Adobe Photoshop CS2 or higher
 
 // Most current version always available at: https://github.com/jwa107/Photoshop-Export-Layers-as-Images
 
@@ -930,20 +930,20 @@ function showDialog() {
     // layer subset selection
     dlg.funcArea.content.grpLayers.radioLayersAll.onClick = function() {
         prefs.exportLayerTarget = ExportLayerTarget.ALL_LAYERS;
-        dlg.funcArea.content.cbBgLayer.enabled = (layerCount > 1);
-        dlg.funcArea.content.cbFgLayer.enabled = (layerCount > 1);
+        dlg.funcArea.content.grpBgFgLayer.cbBgLayer.enabled = (layerCount > 1);
+        dlg.funcArea.content.grpBgFgLayer.cbFgLayer.enabled = (layerCount > 1);
     };
     dlg.funcArea.content.grpLayers.radioLayersVis.onClick = function() {
         prefs.exportLayerTarget = ExportLayerTarget.VISIBLE_LAYERS;
-        dlg.funcArea.content.cbBgLayer.enabled = (visibleLayerCount > 1);
-        dlg.funcArea.content.cbFgLayer.enabled = (visibleLayerCount > 1);
+        dlg.funcArea.content.grpBgFgLayer.cbBgLayer.enabled = (visibleLayerCount > 1);
+        dlg.funcArea.content.grpBgFgLayer.cbFgLayer.enabled = (visibleLayerCount > 1);
     };
     dlg.funcArea.content.grpLayers.radioLayersSel.onClick = function() {
         prefs.exportLayerTarget = ExportLayerTarget.SELECTED_LAYERS;
-        dlg.funcArea.content.cbBgLayer.enabled = false;
-        dlg.funcArea.content.cbFgLayer.enabled = false;
-        dlg.funcArea.content.cbBgLayer.value = false;
-        dlg.funcArea.content.cbFgLayer.value = false;
+        dlg.funcArea.content.grpBgFgLayer.cbBgLayer.enabled = false;
+        dlg.funcArea.content.grpBgFgLayer.cbFgLayer.enabled = false;
+        dlg.funcArea.content.grpBgFgLayer.cbBgLayer.value = false;
+        dlg.funcArea.content.grpBgFgLayer.cbFgLayer.value = false;
     };
     dlg.funcArea.content.grpLayers.radioLayersVis.enabled = (visibleLayerCount > 0);
     dlg.funcArea.content.grpLayers.radioLayersSel.enabled = (selectedLayerCount > 0);
@@ -1091,8 +1091,8 @@ function showDialog() {
 
 
     // background layer setting
-    dlg.funcArea.content.cbBgLayer.enabled = (layerCount > 1);
-    dlg.funcArea.content.cbFgLayer.enabled = (layerCount > 1);
+    dlg.funcArea.content.grpBgFgLayer.cbBgLayer.enabled = (layerCount > 1);
+    dlg.funcArea.content.grpBgFgLayer.cbFgLayer.enabled = (layerCount > 1);
 
     // buttons
     dlg.funcArea.buttons.btnRun.onClick = function() {
@@ -1120,8 +1120,8 @@ function showDialog() {
         prefs.scaleValue = parseInt(dlg.funcArea.content.grpScale.editScale.text);
 
         prefs.forceTrimMethod = dlg.funcArea.content.grpTrim.cbTrim.value;
-        var cbBgLayer = dlg.funcArea.content.cbBgLayer;
-        var cbFgLayer = dlg.funcArea.content.cbFgLayer;
+        var cbBgLayer = dlg.funcArea.content.grpBgFgLayer.cbBgLayer;
+        var cbFgLayer = dlg.funcArea.content.grpBgFgLayer.cbFgLayer;
         prefs.bgLayer = (cbBgLayer.value && cbBgLayer.enabled);
         prefs.fgLayer = (cbFgLayer.value && cbFgLayer.enabled);
 
@@ -2030,7 +2030,7 @@ function bootstrap() {
             env.scriptFileName = $.fileName;
         } else {
             try {
-                //throw new Error();		// doesn't provide the file name, at least in CS2
+                //throw new Error();        // doesn't provide the file name, at least in CS2
                 var illegal = RUNTIME_ERROR;
             } catch (e) {
                 env.scriptFileName = e.fileName;
@@ -2065,7 +2065,7 @@ function bootstrap() {
 //
 
 // Faster layer collection:
-// 	https://forums.adobe.com/message/2666611
+//  https://forums.adobe.com/message/2666611
 
 function collectLayersAM(progressBarWindow) {
     var layers = [],
